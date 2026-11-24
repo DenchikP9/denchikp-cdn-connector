@@ -1,0 +1,941 @@
+{
+  "server": "https://cdnapi.denchikp.com/mcp",
+  "version": "6.71.0",
+  "tools": [
+    {
+      "name": "cdn_account",
+      "title": "Account and quotas",
+      "description": "Returns the API key name, plan, storage and traffic quotas, current usage and the domains this connector can upload to. Call it first to learn the available domains.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Account and quotas",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_list_files",
+      "title": "List files",
+      "description": "Lists files uploaded with this API key, newest first, with optional search by name and filters by domain, folder and extension. Returns links, sizes and dates.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Part of the file name"
+          },
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          },
+          "folder": {
+            "type": "string",
+            "description": "Folder: img, css, js, fonts, video, audio, docs or files"
+          },
+          "extension": {
+            "type": "string",
+            "description": "Extension without the dot, for example png"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200,
+            "description": "How many items to return, 1-200, default 50"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "How many items to skip, for paging"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "List files",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_browse_domain",
+      "title": "Browse a domain",
+      "description": "Lists files stored on disk for a domain, including files uploaded by other keys of the same domain owner. Returns up to 200 files.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          },
+          "folder": {
+            "type": "string",
+            "description": "Folder: img, css, js, fonts, video, audio, docs or files"
+          },
+          "name_filter": {
+            "type": "string",
+            "description": "Part of the file name"
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Browse a domain",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_file_info",
+      "title": "File details",
+      "description": "Returns metadata of one file: size, content type, whether it exists on disk, upload date and expiry.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Full file link: https://cdn.denchikp.com/<domain>/<folder>/<file>"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "File details",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_read_text_file",
+      "title": "Read a text file",
+      "description": "Returns the contents of a text file (html, css, js, json, md, txt, svg and similar) up to 2 MB.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Full file link: https://cdn.denchikp.com/<domain>/<folder>/<file>"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Read a text file",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_stats",
+      "title": "Usage statistics",
+      "description": "Uploads, downloads and views for this API key over a period, optionally for one domain.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "period": {
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month",
+              "year"
+            ],
+            "description": "Period, default month"
+          },
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Usage statistics",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_signed_link",
+      "title": "Temporary link",
+      "description": "Creates a signed link to a file that stops working after the given time. Useful for private files. Does not change the file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Full file link: https://cdn.denchikp.com/<domain>/<folder>/<file>"
+          },
+          "ttl_seconds": {
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 2592000,
+            "description": "Lifetime in seconds, 10 seconds to 30 days, default 3600"
+          },
+          "download": {
+            "type": "boolean",
+            "description": "Make the browser download the file instead of opening it"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Temporary link",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_upload_text",
+      "title": "Upload a text file",
+      "description": "Creates a new file from text (html, css, js, json, md, txt and so on) and returns its public link. Existing files are never overwritten.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "description": "File name with extension, for example index.html"
+          },
+          "content": {
+            "type": "string",
+            "description": "File contents, UTF-8 text, up to 8 MB"
+          },
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          },
+          "keep_filename": {
+            "type": "boolean",
+            "description": "Keep the file name exactly as given. By default the file gets a random unique name. If the name is taken, the upload is rejected."
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "minimum": 60,
+            "description": "Optional: delete the file automatically after this many seconds"
+          }
+        },
+        "required": [
+          "filename",
+          "content"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Upload a text file",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "upload"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_upload_base64",
+      "title": "Upload a file (base64)",
+      "description": "Creates a new file from base64 data (images, PDFs, archives and other binary files, up to 8 MB) and returns its public link. Existing files are never overwritten.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "description": "File name with extension, for example logo.png"
+          },
+          "content_base64": {
+            "type": "string",
+            "description": "File contents encoded as base64"
+          },
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          },
+          "keep_filename": {
+            "type": "boolean",
+            "description": "Keep the file name exactly as given. By default the file gets a random unique name. If the name is taken, the upload is rejected."
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "minimum": 60,
+            "description": "Optional: delete the file automatically after this many seconds"
+          }
+        },
+        "required": [
+          "filename",
+          "content_base64"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Upload a file (base64)",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "upload"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_upload_from_url",
+      "title": "Upload from a link",
+      "description": "The server downloads a file from a public http or https link and stores it as a new file in the CDN (up to 500 MB). Returns the new link.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "source_url": {
+            "type": "string",
+            "description": "Public http or https link to the file"
+          },
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          },
+          "folder": {
+            "type": "string",
+            "description": "Folder: img, css, js, fonts, video, audio, docs or files"
+          }
+        },
+        "required": [
+          "source_url"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Upload from a link",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "upload"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_upload_text_batch",
+      "title": "Upload several text files",
+      "description": "Uploads up to 20 text files in one call (for example the html, css and js of a web page), 8 MB in total. File names are kept by default; existing files are never overwritten. Returns a link or an error for every file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "files": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 20,
+            "description": "Files to upload",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "description": "File name with extension"
+                },
+                "content": {
+                  "type": "string",
+                  "description": "UTF-8 text"
+                }
+              },
+              "required": [
+                "filename",
+                "content"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          },
+          "keep_filename": {
+            "type": "boolean",
+            "description": "Keep file names as given (default true)"
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "minimum": 60,
+            "description": "Optional: delete the files automatically after this many seconds"
+          }
+        },
+        "required": [
+          "files"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Upload several text files",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "upload"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_view_image",
+      "title": "View an image",
+      "description": "Returns an image stored in the CDN (jpg, png, webp or gif) so it can be looked at, described or compared. Large images are scaled down.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Full file link: https://cdn.denchikp.com/<domain>/<folder>/<file>"
+          },
+          "max_width": {
+            "type": "integer",
+            "minimum": 64,
+            "maximum": 1568,
+            "description": "Longest side in pixels, 64-1568, default 1024"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "View an image",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_image_url",
+      "title": "Resized image link",
+      "description": "Builds a public link to a resized, cropped or converted version of an image (webp, avif, jpeg, png) for use on a website. The original file is not changed.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Full file link: https://cdn.denchikp.com/<domain>/<folder>/<file>"
+          },
+          "width": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4096,
+            "description": "Width in pixels"
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4096,
+            "description": "Height in pixels"
+          },
+          "fit": {
+            "type": "string",
+            "enum": [
+              "scale-down",
+              "contain",
+              "cover"
+            ],
+            "description": "How to fit into width and height"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "auto",
+              "webp",
+              "avif",
+              "jpeg",
+              "png"
+            ],
+            "description": "Output format"
+          },
+          "quality": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Quality 1-100, default 80"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Resized image link",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_list_folders",
+      "title": "Domain folders",
+      "description": "Lists the folders of a domain with the number of files and total size in each.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Domain folders",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_file_hash",
+      "title": "File checksum",
+      "description": "Calculates a checksum of a file: sha256 (default), sha1 or md5.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Full file link: https://cdn.denchikp.com/<domain>/<folder>/<file>"
+          },
+          "algorithm": {
+            "type": "string",
+            "enum": [
+              "sha256",
+              "sha1",
+              "md5"
+            ],
+            "description": "Hash algorithm, default sha256"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "File checksum",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_find_duplicates",
+      "title": "Find duplicates",
+      "description": "Finds files with identical content among the files of this API key. Report only: nothing is deleted.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          },
+          "min_size": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Ignore files smaller than this many bytes"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Find duplicates",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_expiring_files",
+      "title": "Expiring files",
+      "description": "Lists files that are scheduled to be deleted automatically, with the time of deletion.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500,
+            "description": "How many items to return, 1-500, default 100"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Expiring files",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_trash",
+      "title": "Trash",
+      "description": "Lists files in the trash and when the trash will be emptied. View only: restoring is done in the DenchikP CDN panel.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500,
+            "description": "How many items to return, 1-500, default 100"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "How many items to skip, for paging"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Trash",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_list_shares",
+      "title": "Share links",
+      "description": "Lists public share links created with this API key: expiry, password protection and download counts.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "description": "Domain the file belongs to, for example example.com, or public. See cdn_account for the list."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500,
+            "description": "How many items to return, 1-500, default 100"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Share links",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_create_share",
+      "title": "Create a share link",
+      "description": "Creates a public download page for a file (https://cdn.denchikp.com/s/<code>) with an optional password, expiry and download limit. The file itself is not changed.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Full file link: https://cdn.denchikp.com/<domain>/<folder>/<file>"
+          },
+          "name": {
+            "type": "string",
+            "description": "Optional label for the link"
+          },
+          "password": {
+            "type": "string",
+            "description": "Optional password, 4-128 characters"
+          },
+          "expires_in_seconds": {
+            "type": "integer",
+            "minimum": 60,
+            "description": "Optional lifetime of the link in seconds"
+          },
+          "max_downloads": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000,
+            "description": "Optional maximum number of downloads"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Create a share link",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "share"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_check_url",
+      "title": "Check a link",
+      "description": "Checks whether an http or https link opens and, for DenchikP CDN links, splits it into domain, folder and file name.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Any http or https link"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Check a link",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cdn_scan_file",
+      "title": "Antivirus scan",
+      "description": "Scans a file with the ClamAV antivirus and reports the result. The file is not changed or deleted.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Full file link: https://cdn.denchikp.com/<domain>/<folder>/<file>"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "title": "Antivirus scan",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "securitySchemes": [
+        {
+          "type": "oauth2",
+          "scopes": [
+            "read"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "denchikp-cdn",
+  "version": "1.0.0",
+  "description": "Connect your DenchikP CDN storage: check quotas and domains, find, read and view files, upload new files and create share links. Existing files are never deleted or overwritten.",
+  "author": {
+    "name": "DenchikP",
+    "email": "support@denchikp.com",
+    "url": "https://cdn.denchikp.com"
+  },
+  "homepage": "https://cdn.denchikp.com/guide/#claude-connector",
+  "repository": "https://github.com/DenchikP9/denchikp-cdn-connector",
+  "license": "MIT",
+  "keywords": ["cdn", "files", "storage", "upload", "images", "hosting", "share links"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "DenchikP CDN",
+        "shortDescription": "Files, links and CDN uploads",
+        "longDescription": "DenchikP CDN is a file storage and content delivery service for websites, apps and screenshots. This app connects ChatGPT to your DenchikP CDN account.\n\nWhat it can do:\n- show your plan, quotas, usage and the domains you can upload to;\n- find files by name, folder or extension and show their links, sizes and dates;\n- read text files (html, css, js, json, md) and look at images (jpg, png, webp, gif);\n- upload new files from text, base64 or a public link, or several text files at once, for example a whole web page;\n- build links to resized or converted images (webp, avif) and temporary signed links;\n- create password-protected share links with an expiry and a download limit;\n- show usage statistics, expiring files, the trash, duplicates, checksums and antivirus results.\n\nWhat it cannot do: delete, overwrite, rename or change existing files. If a file name is taken, the upload is rejected.\n\nYou sign in once with your DenchikP CDN API key on our consent page. The key is not stored; ChatGPT gets its own token with read, upload and share permissions, which you can revoke at any time in the DenchikP CDN panel.",
+        "developerName": "DenchikP",
+        "category": "Productivity",
+        "capabilities": [
+          "Show quotas, usage and domains",
+          "Find and list files",
+          "Read text files",
+          "View images",
+          "Upload new files",
+          "Resized image links",
+          "Share links with password and expiry",
+          "Usage statistics"
+        ],
+        "websiteURL": "https://cdn.denchikp.com",
+        "supportURL": "https://cdn.denchikp.com/guide/#claude-connector-trouble",
+        "privacyPolicyURL": "https://cdn.denchikp.com/privacy/?lang=en",
+        "termsOfServiceURL": "https://cdn.denchikp.com/terms/?lang=en",
+        "defaultPrompt": [
+          "How much space is left on my CDN and which domains can I use?",
+          "Publish this page to my CDN domain and send me the link.",
+          "Make a 400 px wide webp link for my logo.png."
+        ],
+        "brandColor": "#D6004F",
+        "brandColorDark": "#FF5C93",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Account overview",
+              "prompt": "Show my DenchikP CDN quotas, current usage and the domains I can upload to.",
+              "tools_triggered": "cdn_account",
+              "expected_behavior": "Calls cdn_account and summarizes the plan, storage and traffic quotas, usage and the list of domains."
+            },
+            {
+              "description": "Find files",
+              "prompt": "List the 10 newest png files on my CDN with their links.",
+              "tools_triggered": "cdn_list_files",
+              "expected_behavior": "Calls cdn_list_files with extension png and limit 10 and returns file names, sizes, dates and links."
+            },
+            {
+              "description": "Publish a text file",
+              "prompt": "Create a file hello.html with a simple Hello page on my first domain and give me the link.",
+              "tools_triggered": "cdn_account, cdn_upload_text",
+              "expected_behavior": "Gets the domain from cdn_account, uploads a new html file with cdn_upload_text and returns its public link. No existing file is changed."
+            },
+            {
+              "description": "Resized image link",
+              "prompt": "Give me a link to the first image in my img folder, 400 pixels wide, in webp.",
+              "tools_triggered": "cdn_list_files, cdn_image_url",
+              "expected_behavior": "Finds an image with cdn_list_files and returns a transform link with width 400 and format webp from cdn_image_url."
+            },
+            {
+              "description": "Share link",
+              "prompt": "Create a share link for my newest file that expires in 7 days and can be downloaded at most 5 times.",
+              "tools_triggered": "cdn_list_files, cdn_create_share",
+              "expected_behavior": "Creates a share link with expires_in_seconds 604800 and max_downloads 5 and returns the https://cdn.denchikp.com/s/ link."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Deletion is not supported",
+              "prompt": "Delete all files on my DenchikP CDN."
+            },
+            {
+              "description": "Overwriting is not supported",
+              "prompt": "Replace the contents of my existing index.html on the CDN with new text."
+            },
+            {
+              "description": "Unrelated request",
+              "prompt": "What is the weather in Paris tomorrow?"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
