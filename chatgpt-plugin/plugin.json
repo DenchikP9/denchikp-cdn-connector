@@ -11,7 +11,15 @@
   "homepage": "https://cdn.denchikp.com/guide/#claude-connector",
   "repository": "https://github.com/DenchikP9/denchikp-cdn-connector",
   "license": "MIT",
-  "keywords": ["cdn", "files", "storage", "upload", "images", "hosting", "share links"],
+  "keywords": [
+    "cdn",
+    "files",
+    "storage",
+    "upload",
+    "images",
+    "hosting",
+    "share links"
+  ],
   "extensions": {
     "com.openai": {
       "interface": {
@@ -92,7 +100,8 @@
               "prompt": "What is the weather in Paris tomorrow?"
             }
           ]
-        }
+        },
+        "demo_recording_url": "https://cdn.denchikp.com/denchikp.com/video/denchikp-cdn-chatgpt-demo.mp4"
       }
     }
   }
