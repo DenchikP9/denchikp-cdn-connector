@@ -11,10 +11,10 @@ All 22 tools of the DenchikP CDN connector. None of them can delete, overwrite o
 | `cdn_read_text_file` | Read a text file | `read` | yes | no | Returns the contents of a text file (html, css, js, json, md, txt, svg and similar) up to 2 MB. |
 | `cdn_stats` | Usage statistics | `read` | yes | no | Uploads, downloads and views for this API key over a period, optionally for one domain. |
 | `cdn_signed_link` | Temporary link | `read` | yes | no | Creates a signed link to a file that stops working after the given time. Useful for private files. Does not change the file. |
-| `cdn_upload_text` | Upload a text file | `upload` | no | no | Creates a new file from text (html, css, js, json, md, txt and so on) and returns its public link. Existing files are never overwritten. |
-| `cdn_upload_base64` | Upload a file (base64) | `upload` | no | no | Creates a new file from base64 data (images, PDFs, archives and other binary files, up to 8 MB) and returns its public link. Existing files are never overwritten. |
+| `cdn_upload_text` | Upload a text file | `upload` | no | yes | Creates a new file from text (html, css, js, json, md, txt and so on) and returns its public link. Existing files are never overwritten. |
+| `cdn_upload_base64` | Upload a file (base64) | `upload` | no | yes | Creates a new file from base64 data (images, PDFs, archives and other binary files, up to 8 MB) and returns its public link. Existing files are never overwritten. |
 | `cdn_upload_from_url` | Upload from a link | `upload` | no | yes | The server downloads a file from a public http or https link and stores it as a new file in the CDN (up to 500 MB). Returns the new link. |
-| `cdn_upload_text_batch` | Upload several text files | `upload` | no | no | Uploads up to 20 text files in one call (for example the html, css and js of a web page), 8 MB in total. File names are kept by default; existing files are never overwritten. Returns a link or an error for every file. |
+| `cdn_upload_text_batch` | Upload several text files | `upload` | no | yes | Uploads up to 20 text files in one call (for example the html, css and js of a web page), 8 MB in total. File names are kept by default; existing files are never overwritten. Returns a link or an error for every file. |
 | `cdn_view_image` | View an image | `read` | yes | no | Returns an image stored in the CDN (jpg, png, webp or gif) so it can be looked at, described or compared. Large images are scaled down. |
 | `cdn_image_url` | Resized image link | `read` | yes | no | Builds a public link to a resized, cropped or converted version of an image (webp, avif, jpeg, png) for use on a website. The original file is not changed. |
 | `cdn_list_folders` | Domain folders | `read` | yes | no | Lists the folders of a domain with the number of files and total size in each. |
@@ -23,7 +23,7 @@ All 22 tools of the DenchikP CDN connector. None of them can delete, overwrite o
 | `cdn_expiring_files` | Expiring files | `read` | yes | no | Lists files that are scheduled to be deleted automatically, with the time of deletion. |
 | `cdn_trash` | Trash | `read` | yes | no | Lists files in the trash and when the trash will be emptied. View only: restoring is done in the DenchikP CDN panel. |
 | `cdn_list_shares` | Share links | `read` | yes | no | Lists public share links created with this API key: expiry, password protection and download counts. |
-| `cdn_create_share` | Create a share link | `share` | no | no | Creates a public download page for a file (https://cdn.denchikp.com/s/<code>) with an optional password, expiry and download limit. The file itself is not changed. |
+| `cdn_create_share` | Create a share link | `share` | no | yes | Creates a public download page for a file (https://cdn.denchikp.com/s/<code>) with an optional password, expiry and download limit. The file itself is not changed. |
 | `cdn_check_url` | Check a link | `read` | yes | yes | Checks whether an http or https link opens and, for DenchikP CDN links, splits it into domain, folder and file name. |
 | `cdn_scan_file` | Antivirus scan | `read` | yes | no | Scans a file with the ClamAV antivirus and reports the result. The file is not changed or deleted. |
 

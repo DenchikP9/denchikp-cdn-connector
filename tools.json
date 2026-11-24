@@ -1,6 +1,6 @@
 {
   "server": "https://cdnapi.denchikp.com/mcp",
-  "version": "6.71.0",
+  "version": "6.71.1",
   "tools": [
     {
       "name": "cdn_account",
@@ -313,7 +313,7 @@
         "readOnlyHint": false,
         "destructiveHint": false,
         "idempotentHint": false,
-        "openWorldHint": false
+        "openWorldHint": true
       },
       "securitySchemes": [
         {
@@ -364,7 +364,7 @@
         "readOnlyHint": false,
         "destructiveHint": false,
         "idempotentHint": false,
-        "openWorldHint": false
+        "openWorldHint": true
       },
       "securitySchemes": [
         {
@@ -471,7 +471,7 @@
         "readOnlyHint": false,
         "destructiveHint": false,
         "idempotentHint": false,
-        "openWorldHint": false
+        "openWorldHint": true
       },
       "securitySchemes": [
         {
@@ -860,7 +860,7 @@
         "readOnlyHint": false,
         "destructiveHint": false,
         "idempotentHint": false,
-        "openWorldHint": false
+        "openWorldHint": true
       },
       "securitySchemes": [
         {
